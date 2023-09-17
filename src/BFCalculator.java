@@ -52,7 +52,7 @@ public class BFCalculator {
       pen.println(expressions[i]);
     }
     */
-    
+
     String[] values = new String[(expressions.length / 2) + 1];
     String[] operators = new String[expressions.length - values.length];
 
@@ -72,6 +72,7 @@ public class BFCalculator {
     } // for
 */
 
+// for
     for (int i = 0; i < expressions.length; i++) {
       if ((i % 2) == 0)
         values[i/2] = expressions[i];
