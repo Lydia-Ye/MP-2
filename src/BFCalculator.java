@@ -1,5 +1,6 @@
 import java.math.BigInteger;
 import java.io.PrintWriter;
+import java.util.Arrays;
 
 public class BFCalculator {
 
@@ -15,8 +16,8 @@ public class BFCalculator {
   // | Fields |
   // +--------+
 
-  // /** The array of stored registers */
-  // Char[] registers[];
+  /** The array of stored registers */
+  BigFraction[] registers;
 
   /** The results that the expression evaluates to */
   BigFraction result;
@@ -30,7 +31,8 @@ public class BFCalculator {
    * 
    */
   public BFCalculator() {
-   // this.registers = null;
+    this.registers = new BigFraction[26];
+    Arrays.fill(this.registers, new BigFraction(0 , 1));
     this.result = new BigFraction(0 , 1);
   } // BFCalculator()
 
@@ -85,7 +87,9 @@ public class BFCalculator {
     BigFraction[] fractionVals= new BigFraction[values.length];
     //convert all values to their BigFraction form
     for (int i = 0; i < values.length; i++) {
-      if (values[i].contains("/")){
+      if (Character.isLowerCase(values[i].charAt(0))){
+        fractionVals[i] = registers[(int)values[i].charAt(0) - 'a'];
+      } else if (values[i].contains("/")){
         fractionVals[i] = new BigFraction (values[i]);
       } else {
         BigInteger intValue = new BigInteger(values[i]);
@@ -96,7 +100,7 @@ public class BFCalculator {
     // Initialize the result with the first value in the expression
     this.result = fractionVals[0];
     // Calculate the result based on different operators
-    for (int i = 0; i < fractionVals.length; i += 2) {
+    for (int i = 0; i < operators.length; i++) {
       switch (operators[i]){
         case "+":
           this.result = this.result.add(fractionVals[i + 1]);
@@ -123,8 +127,7 @@ public class BFCalculator {
    * Store the last value computed in the named register
    */
   public void store(char register) {
-    BigFraction[] regVals = new BigFraction[26];
     int regIndex = (int)register - 'a';
-    regVals[regIndex] = this.result;
+    this.registers[regIndex] = this.result;
   } //store(char register)
 } // class BFCalculator

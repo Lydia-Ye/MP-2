@@ -12,21 +12,15 @@ public class InteractiveCalculator {
         String[] expArray = exp.split("\\s+");
       
         while (!expArray[0].equals("QUIT")) {
-          pen.println(expArray[0]);
-
           if (expArray[0].equals("STORE")) {
             calculator.store(expArray[1].charAt(0));
-            exp = input.nextLine(); 
-            expArray = exp.split("\\s+");
           } else {
             BigFraction result = calculator.evaluate(exp);
             pen.println(result);
-            exp = input.nextLine(); 
-            expArray = exp.split("\\s+");
           } // if
 
-
-          
+          exp = input.nextLine(); 
+          expArray = exp.split("\\s+");
         } // while
 
         pen.flush();
