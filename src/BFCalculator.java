@@ -48,14 +48,15 @@ public class BFCalculator {
 
   /**
    * Evaluate an expression given in the string, exp, ignoring priority
+   * @throws InvalidFormatException
    */
-  public BigFraction evaluate(String exp) {
+  public BigFraction evaluate(String exp) throws InvalidFormatException {
     // store the elements in string into an array
     String[] expressions = exp.split("\\s+");
 
     if ((expressions.length % 2) == 0) {
       System.err.println("Wrong expression form: incorrect number of terms in the expression");   
-      System.exit(1);
+      System.exit(0);
     } // if
 
     String[] values = new String[(expressions.length / 2) + 1];
@@ -88,7 +89,7 @@ public class BFCalculator {
       } else {
         // if value at i is not in a valid form
         System.err.println("Wrong expression form: there appears to be" +
-                           " invalid value!");   
+                           " invalid value!"); 
         System.exit(0);
       }// if
     } // for
@@ -100,7 +101,7 @@ public class BFCalculator {
         // Prints error message
         System.err.println("Wrong expression form: there appears to be" +
                            " invalid operator!");   
-        System.exit(1);
+        System.exit(0);
       } // if
     } // for
 
@@ -152,4 +153,5 @@ public class BFCalculator {
     } // for
     return true;
   } // isNumber(String)
+
 } // class BFCalculator 
