@@ -4,8 +4,7 @@ import java.io.PrintWriter;
  * A simple implementation of a quick calculator that takes expressions from 
  * command line arguments and prints the results.
  * 
- * @author Samuel A. Rebelsky
- * @author Lydia
+ * @author Lydia Ye
  * @version Oct. 2023
  */
 
