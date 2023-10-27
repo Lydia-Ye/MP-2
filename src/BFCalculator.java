@@ -1,10 +1,16 @@
 import java.math.BigInteger;
-import java.io.PrintWriter;
 import java.util.Arrays;
+
+/**
+ * A simple implementation of a calculator for fractions and integers. 
+ * 
+ * @author Lydia Ye
+ * @version Oct. 2023
+ */
 
 public class BFCalculator {
 
-    // +------------------+---------------------------------------------
+  // +------------------+---------------------------------------------
   // | Design Decisions |
   // +------------------+
   /*
@@ -44,56 +50,57 @@ public class BFCalculator {
    * Evaluate an expression given in the string, exp, ignoring priority
    */
   public BigFraction evaluate(String exp) {
-    PrintWriter pen = new PrintWriter(System.out, true);
-
     // store the elements in string into an array
     String[] expressions = exp.split("\\s+");
 
-    /*
-    for (int i = 0; i < expressions.length; i++){
-      pen.println(expressions[i]);
-    }
-    */
+    if ((expressions.length % 2) == 0) {
+      System.err.println("Wrong expression form: incorrect number of terms in the expression");   
+      System.exit(1);
+    } // if
 
     String[] values = new String[(expressions.length / 2) + 1];
     String[] operators = new String[expressions.length - values.length];
 
-/* 
-    // store all values in the expression in another array
-    for (int i = 0; i  < expressions.length; i += 2) {
-      for (int j = 0; j < values.length; j++) {
-        values[j] = expressions[i];
-      } // for
-    } // for
 
-    // store all operators in the expression in another array
-    for (int i = 1; i  < expressions.length; i += 2) { 
-      for (int j = 0; j < operators.length; j++) {
-        operators[j] = expressions[i];
-      } //for
-    } // for
-*/
-
-// for
     for (int i = 0; i < expressions.length; i++) {
-      if ((i % 2) == 0)
+      if ((i % 2) == 0) {
         values[i/2] = expressions[i];
-      else 
+      } else {
         operators[i/2] = expressions[i];
+      } // if   
     } // for
-
 
     // Store all values in an array of BigFraction
     BigFraction[] fractionVals= new BigFraction[values.length];
     //convert all values to their BigFraction form
     for (int i = 0; i < values.length; i++) {
-      if (Character.isLowerCase(values[i].charAt(0))){
+      if ((values[i].length() == 1) && 
+          Character.isLowerCase(values[i].charAt(0))){
+        // if value at i is a register
         fractionVals[i] = registers[(int)values[i].charAt(0) - 'a'];
-      } else if (values[i].contains("/")){
+      } else if (isNumber(values[i]) && values[i].contains("/")){
+        // if value at i is a fraction
         fractionVals[i] = new BigFraction (values[i]);
-      } else {
+      } else if (isNumber(values[i])) {
+        // if value at i is a integer
         BigInteger intValue = new BigInteger(values[i]);
         fractionVals[i] = new BigFraction(intValue);
+      } else {
+        // if value at i is not in a valid form
+        System.err.println("Wrong expression form: there appears to be" +
+                           " invalid value!");   
+        System.exit(0);
+      }// if
+    } // for
+
+    // Checks if all operators are valid
+    for (int i = 0; i < operators.length; i++) {
+      if (!operators[i].equals("+") && !operators[i].equals("-") && 
+          !operators[i].equals("*") && !operators[i].equals("/")) {
+        // Prints error message
+        System.err.println("Wrong expression form: there appears to be" +
+                           " invalid operator!");   
+        System.exit(1);
       } // if
     } // for
 
@@ -114,14 +121,11 @@ public class BFCalculator {
         case "/":
           this.result = this.result.divide(fractionVals[i + 1]);
           break;
-        default:
-          System.err.println("Invalid operator");
       } // switch
     } // for
 
-  return this.result;
+    return this.result;
   } // evaluate(String exp)
-
 
   /**
    * Store the last value computed in the named register
@@ -129,5 +133,23 @@ public class BFCalculator {
   public void store(char register) {
     int regIndex = (int)register - 'a';
     this.registers[regIndex] = this.result;
-  } //store(char register)
-} // class BFCalculator
+  } // store(char register)
+
+  /**
+   * Check if the input sting val represent a numeric value
+   */
+  public boolean isNumber(String val) {
+    int numSlash = 0;
+    // Check if val contains only numeric value with at most one slash
+    for (int i = 0; i < val.length(); i++) {
+      if (val.charAt(i) ==  '/') {
+        numSlash++;
+      } else if (numSlash > 1) {
+        return false;
+      } else if ((val.charAt(i) < '0') || (val.charAt(i) > '9')) {
+        return false;
+      } //if
+    } // for
+    return true;
+  } // isNumber(String)
+} // class BFCalculator 

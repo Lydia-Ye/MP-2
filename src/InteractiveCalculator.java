@@ -1,6 +1,14 @@
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * A simple implementation of an interactive calculator that repeatedly takes 
+ * expressions from user's input and computes the results.
+ * 
+ * @author Lydia Ye
+ * @version Oct. 2023
+ */
+
 public class InteractiveCalculator {
     public static void main(String[] args) throws Exception {
         PrintWriter pen = new PrintWriter(System.out, true);
@@ -27,11 +35,4 @@ public class InteractiveCalculator {
         input.close();
         return;
     } // main
-
-      // public static String[] getInput(Scanner in) {
-      //   String exp = in.nextLine(); 
-      //   String[] expArray = exp.split("\\s+");
-      //   return expArray;
-      // } // getInput
-
 } // class InterativeCalculator

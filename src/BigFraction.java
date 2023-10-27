@@ -6,7 +6,7 @@ import java.math.BigInteger;
  * 
  * @author Samuel A. Rebelsky
  * @author Lydia, Maria
- * @version Sept. 2023
+ * @version Oct. 2023
  */
 public class BigFraction {
   // +------------------+---------------------------------------------
@@ -190,6 +190,11 @@ public class BigFraction {
     if (this.num.equals(BigInteger.ZERO)) {
       return "0";
     } // if it's zero
+
+    // Special case: It can be  whole number
+    if (this.denom.equals(BigInteger.valueOf(1))) {
+      return "" + this.num;
+    } // if it's a whole number
 
     // Lump together the string represention of the numerator,
     // a slash, and the string representation of the denominator
