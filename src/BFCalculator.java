@@ -48,9 +48,8 @@ public class BFCalculator {
 
   /**
    * Evaluate an expression given in the string, exp, ignoring priority
-   * @throws InvalidFormatException
    */
-  public BigFraction evaluate(String exp) throws InvalidFormatException {
+  public BigFraction evaluate(String exp) {
     // store the elements in string into an array
     String[] expressions = exp.split("\\s+");
 
@@ -61,7 +60,6 @@ public class BFCalculator {
 
     String[] values = new String[(expressions.length / 2) + 1];
     String[] operators = new String[expressions.length - values.length];
-
 
     for (int i = 0; i < expressions.length; i++) {
       if ((i % 2) == 0) {
