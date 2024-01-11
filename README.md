@@ -9,7 +9,7 @@ a quick calculator that uses fractions as their basic numeirc type and include r
 
 ## Project Overview
 
-This project has the following class:
+This project has the following classes:
 
 - `BigFraction.java` includes the implementation of fraction data type.
 - `BFCalculator.java` generates a simple calculator for arithmetic expressions including fractions and integers. Specifically, it provides two (non-static) methods for the calculator: 
